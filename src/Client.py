@@ -2,7 +2,7 @@
 import socket
 from threading import Thread
 
-import txManager
+from manager import txManager
 
 HOST = 'localhost'
 PORT = 9009
