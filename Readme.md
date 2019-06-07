@@ -2,6 +2,10 @@
 
 >for CSE4115
 
+## Diagram
+![Diagram](./diagram.png)
+
+
 ## Problem Description
 [description](./Description.md)
 

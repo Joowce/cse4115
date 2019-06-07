@@ -1,4 +1,5 @@
 import threading
+import logging
 
 lock = threading.Lock()
 
@@ -18,7 +19,7 @@ class UserManager:
         lock.release()
 
         self.send_message_to_all('[%s] user \'%s\' is join.' % addr % username)
-        print('+++ Number of Participation [%d]' % len(self.users))
+        logging.info('+++ Number of Participation [%d]' % len(self.users))
 
         return username
 
@@ -31,7 +32,7 @@ class UserManager:
         lock.release()
 
         self.send_message_to_all('[%s] is quit.' % username)
-        print('--- Number of Participation [%d]' % len(self.users))
+        logging.info('--- Number of Participation [%d]' % len(self.users))
 
     def send_message_to_all(self, msg):
         for conn, addr in self.users.values():
