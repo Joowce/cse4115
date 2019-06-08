@@ -1,4 +1,3 @@
-import time
 import service.Validator as Validator
 import logging
 from enum import Enum
@@ -11,21 +10,11 @@ class TransactionResult(Enum):
 
 
 class TransactionManager:
-    def __init(self):
+    def __init__(self):
         self.pool = []
 
-    @staticmethod
-    def create_transaction(self, sender, receiver, data):
-        return {
-            'from': sender,
-            'to': receiver,
-            'data': data,
-            'timestamp': time.time(),
-        }
-
-    def add_transaction(self, transaction):
-        # TODO: pass valid_transaction parameter
-        if Validator.valid_transaction():
+    def get_transaction(self, transaction):
+        if Validator.valid_transaction(transaction):
             logging.error('not valid transaction')
             return TransactionResult.Fail
         self.pool.append(transaction)
