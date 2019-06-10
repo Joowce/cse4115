@@ -1,0 +1,73 @@
+어떻게 만들까?
+
+
+일단 유저랑 마이너가 Client.py 안에 묶여있음.
+client가 접속하면 신원부터 밝히는게 필요함.
+Whats your name? 
+>> myname12
+Name already exist. Try another name.
+>>
+or
+Are you Miner or User? (1 : Miner, 2 : User)
+>> 2
+/* GUI라면 버튼으로 선택 */
+
+
+신규유저니까 100코인정도 지급하는게 좋을듯.
+
+
+client(user) Main화면 UI
+=========================================================
+Role	ID	Coin	Public Key
+[User] myname12	103	...				
+[User] otherman	96	3ff510b8
+[User] noname	101	...
+[Miner] mino	100	...
+[Miner] digda	110	...
+
+
+Notice
+digda created block and earned 10 Coin!
+Transaction get : 0d2e5a5289bb091d
+: otherman, noname, 1, 2019-06-10-22:30:59, 3ff510b8
+: Valid! 
+: [otherman >> noname] 1 Coin sent.
+
+If you want to send coin to other, input name and coin amount.
+>> digda 4
+=========================================================
+이런식이면 어떨까? GUI더라도 이런 형식으로.
+
+/* GUI라면 밑의 "닉네임 액수" 입력창 제거, 
+유저목록에서 유저를 클릭하면 "How much coin do you want to send?" 가 나오고
+입력창에 숫자를 입력하면 보내짐. */
+
+유저명을 알아야 돈을 보내니 적어도 접속유저명 표기는 필수.
+
+들어오면 서버에 쌓인 모든 트랜잭션을 건네받고,
+그것을 토대로 각 유저의 코인수를 계산할 수 있음.
+
+트랜잭션이 오면
+// 일단 [E(sender, receiver, coin_amount, timestamp), public_key]의 형태로 가정
+validity check 과정을 간략하게 보여주고, 맞으면 개인 t-pool에 저장, 접속자 정보 update.
+
+
+miner의 t-pool이 10의 배수가 되면 
+서버의 거래를 마비시키고?
+hash test 수행.
+답을 찾으면 블록 생성 후
+블록을 받은 모든 유저와 마이너들의 t-pool은 생성된 블록의 트랜잭션으로 모두 교체
+
+
+hash test는 어떻게 수행할까?
+miner에게 "Input initial nonce" 가 뜸.
+miner는 숫자를 입력. 주로 0
+그러면 
+nonce=0 : f028ac79
+nonce=1 : 3e028ca1
+...
+이렇게 나오다가 뭐 하나 걸리면 블록 배포하고 10코인 벌고 거래중지 풂.
+
+
+이렇게 보니까 거의 모든 구현이 Client.py 파일을 다뤄야함. 
+key generator 필요해보임.
