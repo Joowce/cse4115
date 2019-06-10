@@ -5,6 +5,17 @@
 ## Diagram
 ![Diagram](./diagram.png)
 
+## Getting Started
+
+### Prerequisties
+```
+virtualenv $(venv name)
+```
+
+### installing
+```
+pip install requirements.txt
+```
 
 ## Problem Description
 [description](./Description.md)
