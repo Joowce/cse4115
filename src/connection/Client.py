@@ -1,6 +1,6 @@
 import socket
 from threading import Thread
-import json
+from connection.Message import generate_user_message
 import logging
 
 HOST = 'localhost'
@@ -35,13 +35,16 @@ def start(user, rcv_handler, get_message):
         t.start()
 
         try:
-            msg = json.dumps(user)
+            msg = generate_user_message(user)
             sock.send(msg.encode())
 
             while True:
-                msg = get_message()
-                msg = json.dumps(msg)
-                sock.send(msg.encode())
+                try:
+                    msg = get_message()
+                    sock.send(msg.encode())
+                except KeyboardInterrupt:
+                    logging.info('finish')
+                    break
         except Exception as e:
             logging.error(e)
 

@@ -1,11 +1,10 @@
 import threading
 import logging
-
+from connection.Message import generate_user_message, MessageType
 lock = threading.Lock()
 
 
 class UserManager:
-
     def __init__(self):
         self.users= {}
 
@@ -20,7 +19,8 @@ class UserManager:
         self.users[user['name']] = user
         lock.release()
 
-        self.send_message_to_all('%s user \'%s\' is join.' % (addr, user['name']))
+        message = generate_user_message(user)
+        self.send_message_to_all(message)
         logging.info('+++ Number of Participation [%d]' % len(self.users))
 
         return user['name']

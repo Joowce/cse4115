@@ -1,7 +1,9 @@
 import socketserver
 import threading
-import json
+from connection.Message import parse_message
 from manager.userManager import UserManager
+import logging
+import sys, getopt
 
 
 HOST = 'localhost' #Ip Blockchain server로 진행할 IP
@@ -13,13 +15,13 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
     userman = UserManager()
 
     def handle(self):
-        print('%s is connected' % str(self.client_address))
+        logging.info('%s is connected' % str(self.client_address))
         username = ''
         try:
-            username = self.register_username()
+            username = self.register_user()
             msg = self.request.recv(1024)
             while msg:
-                print(msg.decode())
+                logging.info('%s: %s' % (str(self.client_address), msg))
                 if self.userman.message_handler(username, msg.decode()) == -1:
                     self.request.close()
                     break
@@ -28,14 +30,14 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
         except Exception as e:
             print(e)
 
-        print('%s Termination' % str(self.client_address))
+        logging.info('%s Termination' % str(self.client_address))
         self.userman.remove_user(username)
 
-    def register_username(self):
+    def register_user(self):
         while True:
-            user = self.request.recv(1024)
-            user = user.decode()
-            user = json.loads(user)
+            message = self.request.recv(1024)
+            message = message.decode()
+            msg_type, user = parse_message(message)
             username = self.userman.add_user(user, self.request, self.client_address)
             if username:
                 return username
@@ -56,4 +58,11 @@ def run_server():
 
 
 if __name__ == "__main__":
+    opts, args = getopt.getopt(sys.argv[1:], "l", ["log="])
+
+    for opt, arg in opts:
+        if opt in ("-l", "--log"):
+            level = getattr(logging, arg.upper())
+            logging.basicConfig(level=level)
+
     run_server()
