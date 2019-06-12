@@ -25,3 +25,4 @@ class TransactionManager:
             BlockManager.notice_making_block(self.pool[-10:])
 
         return TransactionResult.Success
+

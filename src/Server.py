@@ -1,7 +1,8 @@
 import socketserver
 import threading
-
+import json
 from manager.userManager import UserManager
+
 
 HOST = 'localhost' #Ip Blockchain server로 진행할 IP
 PORT = 9009
@@ -12,7 +13,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
     userman = UserManager()
 
     def handle(self):
-        print('[%s] is connected' % self.client_address[0])
+        print('%s is connected' % str(self.client_address))
         username = ''
         try:
             username = self.register_username()
@@ -27,15 +28,16 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
         except Exception as e:
             print(e)
 
-        print('[%s] Termination' % self.client_address[0])
+        print('%s Termination' % str(self.client_address))
         self.userman.remove_user(username)
 
     def register_username(self):
         while True:
-            self.request.send('role:'.encode())
-            username = self.request.recv(1024)
-            username = username.decode().strip()
-            if self.userman.add_user(username, self.request, self.client_address):
+            user = self.request.recv(1024)
+            user = user.decode()
+            user = json.loads(user)
+            username = self.userman.add_user(user, self.request, self.client_address)
+            if username:
                 return username
 
 
@@ -44,6 +46,7 @@ class ChatingServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
 
 def run_server():
+    server = None
     try:
         server = ChatingServer((HOST, PORT), MyTcpHandler)
         server.serve_forever()
@@ -52,4 +55,5 @@ def run_server():
         server.server_close()
 
 
-run_server()
+if __name__ == "__main__":
+    run_server()

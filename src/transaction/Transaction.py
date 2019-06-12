@@ -10,3 +10,4 @@ class Transaction(object):
         self.message = message
         self.public_key = public_key
         self.signature = signature
+
