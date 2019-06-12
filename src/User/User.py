@@ -1,6 +1,7 @@
 import enum
 import util.Crypto as Crypto
 from transaction.TransactionManager import TransactionManager
+from transaction.Transaction import Transaction
 from block.BlockManager import BlockManager
 import logging
 
@@ -28,6 +29,11 @@ class User(object):
         self.neighbors_pub_map[user['public_key']] = user
         logging.info('add user %s', user)
 
-    def generate_transaction(self):
-        pass
+    def generate_transaction(self, receiver, message):
+        transaction = Transaction(
+            self.public_key, receiver, message,
+        )
+        signature = Crypto.sign(self.private_key, transaction.get_data())
+        transaction.add_signature(signature)
+        return transaction
 
