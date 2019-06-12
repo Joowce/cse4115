@@ -9,7 +9,7 @@ class MessageType(enum.Enum):
 
 
 def generate_message(type, data):
-    message = {'type': type.value, 'data': data}
+    message = {'type': type.name, 'data': data}
     return json.dumps(message)
 
 
@@ -25,4 +25,4 @@ def generate_user_message(user):
 
 def parse_message(message):
     message = json.loads(message)
-    return message['type'], message['data']
+    return MessageType[message['type']], message['data']
