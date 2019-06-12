@@ -26,19 +26,19 @@ def register_user(user, client):
 
 def receive(user, client):
     msg = client.receive()
+
     while msg:
-        print(msg)
-        msg = client.receive()
-    message_type, data = parse_message(msg)
-    while msg:
-        if message_type is MessageType.NEIGHBOR:
+        message_type, data = parse_message(msg)
+        if message_type == MessageType.NEIGHBOR:
             user.add_neighbor(data)
-        elif message_type is MessageType.TRANSACTION:
+        elif message_type == MessageType.TRANSACTION:
             user.transaction_manager.add_transaction(data)
-        elif message_type is MessageType.BLOCK:
+        elif message_type == MessageType.BLOCK:
             user.block_manager.add_block(data)
-        elif message_type is MessageType.NEIGHBOR_LIST:
+        elif message_type == MessageType.NEIGHBOR_LIST:
             user.init_neighbor_list(data)
+
+        msg = client.receive()
 
 
 def start(user, client):
@@ -53,7 +53,6 @@ def start(user, client):
         try:
             receiver = input()
             message = input()
-            client.send(message)
             transaction = user.generate_transaction(receiver, message)
             transaction = wrap_transaction(transaction)
             client.send(transaction)

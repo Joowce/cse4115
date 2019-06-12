@@ -19,6 +19,7 @@ class TransactionManager:
             return TransactionResult.Fail
 
         self.pool.store_transaction(transaction)
+        logging.info('store transaction')
 
         if self.pool.is_full() and block_manager:
             logging.info("pool has new 10 transactions -> notice to block manager")

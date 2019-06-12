@@ -3,17 +3,17 @@ import util.Crypto as Crypto
 
 
 def valid_transaction(transaction):
-    if transaction.public_key is None:
+    if transaction.sender is None:
         return False
 
-    return Crypto.verify_signature(transaction.public_key,
+    return Crypto.verify_signature(transaction.sender,
                                    transaction.signature,
-                                   transaction.message)
+                                   transaction.get_data())
 
 
 def valid_block(block):
     hash_val = hashlib.sha256(block).hexdigest()
     for i in range(2):
-        if hash_val[i] is not 0:
+        if hash_val[i] != 0:
             return False
     return True

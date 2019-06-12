@@ -2,7 +2,7 @@ import enum
 import json
 import logging
 from User.Neighbor import Neighbor
-
+from transaction.Transaction import Transaction
 
 class MessageType(enum.Enum):
     NEIGHBOR = 1
@@ -44,6 +44,8 @@ def parse_message(message):
             data = [Neighbor(total_dict=neighbor) for neighbor in data]
         elif message_type == MessageType.NEIGHBOR:
             data = Neighbor(total_dict=data)
+        elif message_type == MessageType.TRANSACTION:
+            data = Transaction().load_dict(data)
     except Exception as e:
         logging.error(e)
 
