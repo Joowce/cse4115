@@ -37,6 +37,8 @@ def receive(user, client):
             user.block_manager.add_block(data)
         elif message_type == MessageType.NEIGHBOR_LIST:
             user.init_neighbor_list(data)
+        elif message_type == MessageType.LOGOUT:
+            user.remove_neighbor(data)
 
         msg = client.receive()
 

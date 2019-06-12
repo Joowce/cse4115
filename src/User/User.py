@@ -31,7 +31,14 @@ class User(object):
             return
         self.neighbors_name_map[user.name] = user
         self.neighbors_pub_map[user.public_key] = user
-        logging.info('add user %s %s', user.name, user.addr)
+        logging.info('add user %s %s', user.addr, user.name)
+
+    def remove_neighbor(self, user):
+        if user.name not in self.neighbors_name_map:
+            return
+        del(self.neighbors_pub_map[user.public_key])
+        del(self.neighbors_name_map[user.name])
+        logging.info('remove user %s %s', user.addr, user.name)
 
     def generate_transaction(self, receiver, message):
         transaction = Transaction(

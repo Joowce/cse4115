@@ -10,6 +10,7 @@ class MessageType(enum.Enum):
     BLOCK = 3
     NEIGHBOR_LIST = 4
     STRING = 5
+    LOGOUT = 6
 
 
 def generate_message(message_type, data):
@@ -32,6 +33,11 @@ def wrap_neighbor_list(neighbor_list):
     return generate_message(MessageType.NEIGHBOR_LIST, summary_list)
 
 
+def wrap_logout(neighbor):
+    data = neighbor.get_summary()
+    return generate_message(MessageType.LOGOUT, data)
+
+
 def parse_message(message):
     message_type = MessageType.STRING
     data = message
@@ -42,7 +48,7 @@ def parse_message(message):
 
         if message_type == MessageType.NEIGHBOR_LIST:
             data = [Neighbor(total_dict=neighbor) for neighbor in data]
-        elif message_type == MessageType.NEIGHBOR:
+        elif message_type in (MessageType.NEIGHBOR, MessageType.LOGOUT):
             data = Neighbor(total_dict=data)
         elif message_type == MessageType.TRANSACTION:
             data = Transaction().load_dict(data)

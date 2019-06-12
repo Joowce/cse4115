@@ -1,6 +1,6 @@
 import threading
 import logging
-from connection.Message import wrap_neighbor, wrap_neighbor_list
+from connection.Message import wrap_neighbor, wrap_neighbor_list, wrap_logout
 lock = threading.Lock()
 
 
@@ -32,11 +32,14 @@ class UserManager:
         if username not in self.users:
             return
 
+        user = self.users[username]
+
         lock.acquire()
-        del self.users[username]
+        del(self.users[username])
         lock.release()
 
-        self.send_message_to_all('[%s] is quit.' % username)
+        self.send_message_to_all(wrap_logout(user))
+
         logging.info('--- Number of Participation [%d]' % len(self.users))
 
     def send_message_to_all(self, msg):
