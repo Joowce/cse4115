@@ -1,6 +1,6 @@
 from connection.Client import Client
 from threading import Thread
-from connection.Message import MessageType, parse_message, wrap_user
+from connection.Message import MessageType, parse_message, wrap_user, wrap_transaction
 from User.User import User
 import logging
 
@@ -42,9 +42,11 @@ def start(user, client):
 
     while True:
         try:
+            receiver = input()
             message = input()
             client.send(message)
-            transaction = user.generate_transaction(message)
+            transaction = user.generate_transaction(receiver, message)
+            transaction = wrap_transaction(transaction)
             client.send(transaction)
         except KeyboardInterrupt:
             logging.info('finish')

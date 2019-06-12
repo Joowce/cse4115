@@ -23,6 +23,11 @@ def wrap_user(user):
     return generate_message(MessageType.USER, data)
 
 
+def wrap_transaction(transaction):
+    data = transaction.__dict__
+    return generate_message(MessageType.TRANSACTION, data)
+
+
 def parse_message(message):
     message = json.loads(message)
     return MessageType[message['type']], message['data']

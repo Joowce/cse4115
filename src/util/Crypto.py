@@ -9,17 +9,17 @@ def generate_key():
 
 def sign(private_key, data):
     sk = SigningKey.from_string(bytes.fromhex(private_key), curve=NIST384p)
-    return sk.sign(data.encode())
+    return sk.sign(data.encode()).hex()
 
 
 def verify_signature(public_key, signature, data):
     vk = VerifyingKey.from_string(bytes.fromhex(public_key), curve=NIST384p)
-    return vk.verify(signature, data.encode())
+    return vk.verify(bytes.fromhex(signature), data.encode())
 
 
 if __name__ == '__main__':
     Sk, Vk = generate_key()
-    print(bytes.fromhex(Sk))
     msg = input()
     sig = sign(Sk, msg)
+    print(sig)
     print(verify_signature(Vk, sig, msg))
