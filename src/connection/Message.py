@@ -13,7 +13,7 @@ def generate_message(type, data):
     return json.dumps(message)
 
 
-def generate_user_message(user):
+def wrap_user(user):
     data = {
         'name': user.get('name'),
         'public_key': user.get('public_key'),

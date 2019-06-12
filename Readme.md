@@ -25,11 +25,11 @@ python ./src/connection/Server.py
 ```
 ### User
 ```
-python ./src/User/User.py
+python ./src/interface/UserInterface.py
 ```
 ### Miner
 ```
-python ./src/User/Miner.py
+python ./src/interface/MinerInterface.py
 ```
 
 ## Problem Description

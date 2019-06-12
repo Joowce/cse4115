@@ -1,6 +1,6 @@
 import threading
 import logging
-from connection.Message import generate_user_message, MessageType
+from connection.Message import wrap_user, MessageType
 lock = threading.Lock()
 
 
@@ -19,7 +19,7 @@ class UserManager:
         self.users[user['name']] = user
         lock.release()
 
-        message = generate_user_message(user)
+        message = wrap_user(user)
         self.send_message_to_all(message)
         logging.info('+++ Number of Participation [%d]' % len(self.users))
 

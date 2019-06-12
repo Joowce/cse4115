@@ -1,6 +1,8 @@
-import connection.Client as Client
 import enum
 import util.Crypto as Crypto
+from transaction.TransactionManager import TransactionManager
+from block.BlockManager import BlockManager
+import logging
 
 
 class UserType(enum.Enum):
@@ -10,23 +12,22 @@ class UserType(enum.Enum):
 
 class User(object):
     def __init__(self):
-        """
-        TODO
-        1. users
-        """
-        self.users = []
+        self.neighbors_name_map = {}
+        self.neighbors_pub_map = {}
         self.name = input('input user name:')
         self.type = UserType.USER
         self.private_key, self.public_key = Crypto.generate_key()
 
-    def get_info(self):
-        return {
-            'name': self.name,
-            'type': self.type.name,
-            'public_key': self.public_key
-        }
+        self.transaction_manager = TransactionManager()
+        self.block_manager = BlockManager()
 
+    def add_neighbor(self, user):
+        if user['name'] in self.neighbors_name_map:
+            return
+        self.neighbors_name_map[user['name']] = user
+        self.neighbors_pub_map[user['public_key']] = user
+        logging.info('add user %s', user)
 
-if __name__ == '__main__':
-    user = User()
-    Client.start(user.get_info(), print, input)
+    def generate_transaction(self):
+        pass
+
