@@ -12,7 +12,7 @@ class Transaction(object):
         self.signature = ''
 
     def get_data(self):
-        data = self.__dict__
+        data = vars(self).copy()
         del(data['signature'])
         return json.dumps(data)
 

@@ -13,8 +13,8 @@ class TransactionManager:
     def __init__(self):
         self.pool = TransactionStorage()
 
-    def add_transaction(self, transaction, block_manager):
-        if Validator.valid_transaction(transaction):
+    def add_transaction(self, transaction, block_manager=None):
+        if not Validator.valid_transaction(transaction):
             logging.error('not valid transaction')
             return TransactionResult.Fail
 

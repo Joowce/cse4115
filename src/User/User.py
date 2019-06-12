@@ -22,12 +22,16 @@ class User(object):
         self.transaction_manager = TransactionManager()
         self.block_manager = BlockManager()
 
+    def init_neighbor_list(self, neighbor_list):
+        for neighbor in neighbor_list:
+            self.add_neighbor(neighbor)
+
     def add_neighbor(self, user):
-        if user['name'] in self.neighbors_name_map:
+        if user.name in self.neighbors_name_map:
             return
-        self.neighbors_name_map[user['name']] = user
-        self.neighbors_pub_map[user['public_key']] = user
-        logging.info('add user %s', user)
+        self.neighbors_name_map[user.name] = user
+        self.neighbors_pub_map[user.public_key] = user
+        logging.info('add user %s %s', user.name, user.addr)
 
     def generate_transaction(self, receiver, message):
         transaction = Transaction(
@@ -37,3 +41,6 @@ class User(object):
         transaction.add_signature(signature)
         return transaction
 
+
+if __name__ == '__main__':
+    print(UserType['USER'].name)
