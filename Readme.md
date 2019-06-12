@@ -10,11 +10,26 @@
 ### Prerequisties
 ```
 virtualenv $(venv name)
+export PYTHONPATH=./src
 ```
 
 ### installing
 ```
 pip install requirements.txt
+```
+
+## run
+### Server
+```
+python ./src/connection/Server.py
+```
+### User
+```
+python ./src/User/User.py
+```
+### Miner
+```
+python ./src/User/Miner.py
 ```
 
 ## Problem Description

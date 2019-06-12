@@ -15,7 +15,9 @@ def receive(sock, rcv_handler):
                 break
             rcv_handler(data.decode())
         except Exception as e:
-            logging.error(e)
+            # except socket fail
+            if not isinstance(e, OSError):
+                logging.error(e)
 
 
 def start(user, rcv_handler, get_message):
@@ -32,13 +34,16 @@ def start(user, rcv_handler, get_message):
         t.daemon = True
         t.start()
 
-        msg = json.dumps(user)
-        sock.send(msg.encode())
-
-        while True:
-            msg = get_message()
-            msg = json.dumps(msg)
+        try:
+            msg = json.dumps(user)
             sock.send(msg.encode())
+
+            while True:
+                msg = get_message()
+                msg = json.dumps(msg)
+                sock.send(msg.encode())
+        except Exception as e:
+            logging.error(e)
 
 
 if __name__ == "__main__":
