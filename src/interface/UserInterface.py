@@ -24,6 +24,26 @@ def register_user(user, client):
     return 1
 
 
+def start(user, client, msg_handler):
+    if register_user(user, client) != 1:
+        logging.info('already existed user name')
+        return
+    t = Thread(target=msg_handler, args=(user, client))
+    t.daemon = True
+    t.start()
+
+    while True:
+        try:
+            receiver = input()
+            message = input()
+            transaction = user.generate_transaction(receiver, message)
+            transaction = wrap_transaction(transaction)
+            client.send(transaction)
+        except KeyboardInterrupt:
+            logging.info('finish')
+            break
+
+
 def receive(user, client):
     msg = client.receive()
 
@@ -43,25 +63,5 @@ def receive(user, client):
         msg = client.receive()
 
 
-def start(user, client):
-    if register_user(user, client) != 1:
-        logging.info('already existed user name')
-        return
-    t = Thread(target=receive, args=(user, client))
-    t.daemon = True
-    t.start()
-
-    while True:
-        try:
-            receiver = input()
-            message = input()
-            transaction = user.generate_transaction(receiver, message)
-            transaction = wrap_transaction(transaction)
-            client.send(transaction)
-        except KeyboardInterrupt:
-            logging.info('finish')
-            break
-
-
 if __name__ == '__main__':
-    start(User(), Client())
+    start(User(), Client(), receive)
