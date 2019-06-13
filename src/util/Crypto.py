@@ -1,4 +1,4 @@
-from ecdsa import SigningKey, VerifyingKey, NIST384p
+from ecdsa import SigningKey, VerifyingKey, NIST384p, BadSignatureError
 
 
 def generate_key():
@@ -14,7 +14,10 @@ def sign(private_key, data):
 
 def verify_signature(public_key, signature, data):
     vk = VerifyingKey.from_string(bytes.fromhex(public_key), curve=NIST384p)
-    return vk.verify(bytes.fromhex(signature), data.encode())
+    try:
+        return vk.verify(bytes.fromhex(signature), data.encode())
+    except BadSignatureError:
+        return False
 
 
 if __name__ == '__main__':
