@@ -38,6 +38,12 @@ def wrap_logout(neighbor):
     return generate_message(MessageType.LOGOUT, data)
 
 
+def wrap_block(block):
+    data = vars(block)
+    data['block_header'] = vars(block.block_header)
+    return generate_message(MessageType.BLOCK, data)
+
+
 def parse_message(message):
     message_type = MessageType.STRING
     data = message

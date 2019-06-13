@@ -12,7 +12,7 @@ def proof_of_work(block_info, difficulty_bits, nonce_start, is_found):
     # calculate the difficulty target
     target = 2 ** (256-difficulty_bits)
 
-    logging.info("Target Value : ",hex(target))
+    logging.info("Target Value : %s", hex(target))
     logging.info(" ")
     start_time = time.time()
     i = 1
@@ -22,7 +22,7 @@ def proof_of_work(block_info, difficulty_bits, nonce_start, is_found):
 
         hash_result = HashCalculator.get_hash(str(block_info)+str(nonce))
         if int(hash_result, 16) <= target:
-            logging.info("Success with nonce %d" % nonce, "log2=", math.log(nonce,2))
+            logging.info("Success with nonce %d log2= %f", nonce, math.log(nonce,2))
             logging.info(" ")
             logging.info("Hash is %s" % hash_result)
             logging.info(" ")

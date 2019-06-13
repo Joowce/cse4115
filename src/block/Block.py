@@ -3,11 +3,11 @@ import json
 
 
 class BlockHeader(object):
-    def __init__(self, prev_hash, block_hash, nonce, hash_difficulty, miner):
+    def __init__(self, prev_hash, block_hash, nonce, hash_difficulty, miner_public_key):
         self.type = 'B'
         self.block_hash = block_hash
         self.hash_difficulty = hash_difficulty
-        self.miner = miner
+        self.miner = miner_public_key
 
         self.nonce = nonce
         self.prev_hash = prev_hash

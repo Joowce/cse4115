@@ -61,7 +61,7 @@ class BlockManager:
         if try_and_error == -1:
             return None
 
-        block_header = BlockHeader(prev_hash, block_hash, nonce, difficulty, self.user)
+        block_header = BlockHeader(prev_hash, block_hash, nonce, difficulty, self.user.public_key)
         block = Block(block_header, transaction_list)
         return block
         
