@@ -25,7 +25,8 @@ def receive(user, client):
 
 def get_user_response(transaction_list):
     print(transaction_list)
-    return int(input())
+    input_data = input('please type nonce start')
+    return int(input_data) if input_data != '' else 0
 
 
 def send_block(c, block):
@@ -34,12 +35,12 @@ def send_block(c, block):
 
 
 if __name__ == '__main__':
-    # client = Client()
+    client = Client()
 
     miner = Miner()
     miner.register_notice_prompt(get_user_response)
-    # miner.block_manager.register_after_mine(lambda block: send_block(client, block))
+    miner.block_manager.register_after_mine(lambda block: send_block(client, block))
 
-    # start(miner, client, receive)
+    start(miner, client, receive)
     # block = miner.block_manager.generate_block('', [], 0)
     # print(wrap_block(block))

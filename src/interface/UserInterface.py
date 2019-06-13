@@ -34,7 +34,8 @@ def start(user, client, msg_handler):
 
     while True:
         try:
-            receiver = input()
+            # receiver = input()
+            receiver = ''
             message = input()
             transaction = user.generate_transaction(receiver, message)
             transaction = wrap_transaction(transaction)

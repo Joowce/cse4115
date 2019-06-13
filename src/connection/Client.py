@@ -3,7 +3,7 @@ import logging
 
 HOST = 'localhost'
 PORT = 9009
-MAX_SIZE = 1024
+MAX_SIZE = 10240
 logging.basicConfig(level=logging.INFO)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 

@@ -3,6 +3,8 @@ import json
 import logging
 from User.Neighbor import Neighbor
 from transaction.Transaction import Transaction
+from block.Block import Block, BlockHeader
+
 
 class MessageType(enum.Enum):
     NEIGHBOR = 1
@@ -58,6 +60,8 @@ def parse_message(message):
             data = Neighbor(total_dict=data)
         elif message_type == MessageType.TRANSACTION:
             data = Transaction().load_dict(data)
+        elif message_type == MessageType.BLOCK:
+            data = Block().load_dict(data)
     except Exception as e:
         logging.error(e)
 

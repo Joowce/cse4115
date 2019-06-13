@@ -25,7 +25,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
                 if self.userman.message_handler(username, msg.decode()) == -1:
                     self.request.close()
                     break
-                msg = self.request.recv(1024)
+                msg = self.request.recv(10240)
 
         except Exception as e:
             print(e)
@@ -35,7 +35,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
 
     def register_user(self):
         while True:
-            message = self.request.recv(1024)
+            message = self.request.recv(10240)
             message = message.decode()
             msg_type, user = parse_message(message)
             username = self.userman.add_user(user, self.request, self.client_address)

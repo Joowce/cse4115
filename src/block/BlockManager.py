@@ -39,17 +39,15 @@ class BlockManager:
         self.start_mining(transaction_list, nonce_start)
 
     def start_mining(self, transaction_list, nonce_start):
-        last_block = self.block_storage.get_last_block()
-        prev_hash = last_block.block_hash if last_block else ''
+        prev_hash= self.block_storage.get_last_block_hash()
         self.mining_task = Thread(target=self.mine,
                                   args=(prev_hash, transaction_list, nonce_start, self.after_mine), daemon=True)
         self.mining_task.start()
 
     def add_block(self, block):
-        last_block = self.block_storage.get_last_block()
-        prev_hash = last_block.block_hash
+        prev_hash = self.block_storage.get_last_block_hash()
 
-        if not Validator.valid_block(prev_hash, block):
+        if not Validator.valid_block(prev_hash, block.block_header):
             return
 
         self.block_storage.store_block(block)
