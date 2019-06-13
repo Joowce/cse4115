@@ -19,13 +19,11 @@ def proof_of_work(block_info, difficulty_bits, nonce_start):
     try:
         for nonce in range(nonce_start, max_nonce):
             hash_result = HashCalculator.get_hash(str(block_info)+str(nonce))
-
             if int(hash_result, 16) <= target:
                 logging.info("Success with nonce %d" % nonce, "log2=", math.log(nonce,2))
                 logging.info(" ")
                 logging.info("Hash is %s" % hash_result)
                 logging.info(" ")
-                found = True
                 end_time = time.time()
 
                 elapsed_time = end_time - start_time
@@ -40,4 +38,9 @@ def proof_of_work(block_info, difficulty_bits, nonce_start):
         logging.info("Stop at %d tries", i)
 
     logging.info("Failed after %d (max_nonce) tries" % nonce)
-    return nonce
+    return None, nonce, -1
+
+
+if __name__ == '__main__':
+    block_hash, nonce_val, tries = proof_of_work('hello', 2, 0)
+    print(block_hash)
