@@ -1,6 +1,6 @@
 import logging
 
-
+logger = logging.getLogger('monitoring')
 BLOCK_LEN = 2
 
 
@@ -10,7 +10,8 @@ class TransactionStorage:
 
     def store_transaction(self, transaction):
         self.pool.append(transaction)
-        logging.info('+++ transaction storage [%d]', len(self.pool))
+        logger.info('+++ transaction storage [%d]', len(self.pool))
+        logger.info('transaction.[%s] %s', transaction.tx_id, transaction.message)
 
     def is_full(self):
         return len(self.pool) % BLOCK_LEN == 0

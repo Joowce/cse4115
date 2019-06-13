@@ -12,6 +12,7 @@ class BlockHeader(object):
         self.nonce = nonce
         self.prev_hash = prev_hash
         self.timestamp = time.strftime('%Y%m%d%H%M%S', time.localtime())
+        self.block_id = 'B' + self.timestamp
         self.num_transaction = 0
 
 

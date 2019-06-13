@@ -1,12 +1,11 @@
 import time
-import threading
 import queue
-import os
+import os, sys
 import logging
 
 from PyQt5 import QtWidgets
 from PyQt5 import uic
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal, QThread
 from PyQt5.QtWidgets import QListWidgetItem
 
 from view.node_widget import NodeWidget
@@ -29,6 +28,39 @@ def add_peer(title, subtitle, iconfilename):
         Main_form.add_node(title, subtitle, iconfilename)
 
 
+class ReadThread(QThread):
+    add_peer_sig = pyqtSignal(str, str, str)
+    log_sig = pyqtSignal(str)
+    frame_sig = pyqtSignal(str)
+    bl_sig = pyqtSignal(str)
+    tx_sig = pyqtSignal(str)
+    rm_peer_sig = pyqtSignal(str)
+
+    def __init__(self):
+        QThread.__init__(self)
+
+    # run method gets called when we start the thread
+    def run(self):
+        time.sleep(1.5)
+        while True:
+            self.frame_sig.emit('Server Status : NORMAL            ' + time.strftime('%H:' + '%M:' + '%S'))
+
+            if monitoring_queue.qsize() > 0:
+                datas = monitoring_queue.get()
+
+                data = datas.split('.')
+
+                if data[0] == 'log':
+                    self.log_sig.emit(data[1])
+                elif data[0] == 'block':
+                    self.bl_sig.emit(data[1])
+                elif data[0] == 'transaction':
+                    self.tx_sig.emit(data[1])
+                elif data[0] == 'add_peer':
+                    self.add_peer_sig.emit(data[1], data[2], os.path.join(os.path.dirname(__file__), "producer.png"))
+                elif data[0] == 'remove_peer':
+                    self.rm_peer_sig.emit(data[1])
+
 
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
@@ -39,15 +71,20 @@ class Form(QtWidgets.QDialog):
 
         self.ui.listWidget_4.setSpacing(30)
 
-        queue_thread = threading.Thread(target=self.read_queue)
-        queue_thread.daemon = True
-        queue_thread.start()
+        self.queue_thread = ReadThread()
+        self.queue_thread.add_peer_sig.connect(self.add_node)
+        self.queue_thread.log_sig.connect(self.handle_log)
+        self.queue_thread.frame_sig.connect(self.change_status_text)
+        self.queue_thread.bl_sig.connect(self.handle_block)
+        self.queue_thread.tx_sig.connect(self.handle_tx)
+        self.queue_thread.rm_peer_sig.connect(self.remove_node)
 
+        self.queue_thread.start()
         self.ui.show()
 
     def add_node(self, title, subtitle, iconfilename):
         # Create QCustomQWidget
-        myQCustomQWidget = NodeWidget()
+        myQCustomQWidget = NodeWidget(self.ui.listWidget_4)
         myQCustomQWidget.setTextUp(title)
         myQCustomQWidget.setTextDown(subtitle)
         myQCustomQWidget.setIcon(iconfilename)
@@ -58,6 +95,8 @@ class Form(QtWidgets.QDialog):
         # Set size hint
         myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
 
+        print('-------')
+
         # Add QListWidgetItem into QListWidget
         self.ui.listWidget_4.addItem(myQListWidgetItem)
         self.ui.listWidget_4.setItemWidget(myQListWidgetItem, myQCustomQWidget)
@@ -67,6 +106,18 @@ class Form(QtWidgets.QDialog):
 
     def change_status_text(self, message):
         self.ui.label_7.setText(""+message)
+
+    def handle_log(self, log):
+        self.add_log_item(log)
+        self.change_frame_color(44, 132, 238)
+
+    def handle_block(self, log):
+        self.add_block_item(log)
+        self.change_frame_color(231, 76, 60)
+
+    def handle_tx(self, tx):
+        self.add_transaction_item(tx)
+        self.change_frame_color(241, 196, 15)
 
     def add_log_item(self,log):
         item = QListWidgetItem(log)
@@ -108,25 +159,9 @@ class Form(QtWidgets.QDialog):
     def add_queue_data(self,data):
         monitoring_queue.put(data)
 
-    def read_queue(self):
-        time.sleep(1.5)
-        while True:
-            self.change_status_text('Server Status : NOMAL            ' + time.strftime('%H:' + '%M:' + '%S'))
 
-            if monitoring_queue.qsize() > 0:
-                datas = monitoring_queue.get()
-
-                data = datas.split('.')
-
-                if data[0] == 'log':
-                    self.add_log_item(data[1])
-                    self.change_frame_color(44, 132, 238)
-                elif data[0] == 'block':
-                    self.add_block_item(data[1])
-                    self.change_frame_color(231,76,60)
-                elif data[0] == 'transaction':
-                    self.add_transaction_item(data[1])
-                    self.change_frame_color(241, 196, 15)
-                elif data[0] == 'add_peer':
-                    # self.add_node(data[1], data[2], data[1]+".png")
-                    self.add_node(data[1], data[2], "producer.png")
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    Main_form = Form()
+    add_peer('test', '[\'127-0-0-1\', 51902]', os.path.join(os.path.dirname(__file__), "node.png"))
+    sys.exit(app.exec())

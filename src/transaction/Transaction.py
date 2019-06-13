@@ -7,7 +7,7 @@ class Transaction(object):
         self.sender = sender
         self.receiver = receiver
         self.timestamp = time.strftime('%Y%m%d%H%M%S', time.localtime())
-        self.tx_id = "B" + self.timestamp
+        self.tx_id = "T" + self.timestamp
         self.message = message
         self.signature = ''
 

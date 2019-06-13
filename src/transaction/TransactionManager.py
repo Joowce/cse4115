@@ -17,17 +17,17 @@ class TransactionManager:
 
     def add_transaction(self, transaction, block_manager=None):
         if not Validator.valid_transaction(transaction):
-            logger.error('transaction.--- Invalid transaction[%s]: %s',
+            logger.error('log.--- Invalid transaction[%s]: %s',
                          transaction.tx_id,
                          transaction.message)
-            logger.error('transaction.--- remove invalid transaction')
+            logger.error('log.--- remove invalid transaction')
             return TransactionResult.Fail
 
         self.pool.store_transaction(transaction)
-        logger.info('transaction.+++ Store transaction[%s]: %s', transaction.tx_id, transaction.message)
+        logger.info('log.+++ Store transaction[%s]: %s', transaction.tx_id, transaction.message)
 
         if self.pool.is_full() and block_manager:
-            logger.info("transaction.pool has new 10 transactions -> notice to block manager")
+            logger.info("log.pool has new 10 transactions -> notice to block manager")
             block_manager.notice_making_block(self.pool.get_last())
 
         return TransactionResult.Success

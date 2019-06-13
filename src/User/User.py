@@ -5,6 +5,8 @@ from transaction.Transaction import Transaction
 from block.BlockManager import BlockManager
 import logging
 
+logger = logging.getLogger('monitoring')
+
 
 class UserType(enum.Enum):
     USER = 1
@@ -15,7 +17,8 @@ class User(object):
     def __init__(self):
         self.neighbors_name_map = {}
         self.neighbors_pub_map = {}
-        self.name = input('input user name:')
+        self.neighbors = []
+        self.name = input('Type user name: ')
         self.type = UserType.USER
         self.private_key, self.public_key = Crypto.generate_key()
 
@@ -31,14 +34,18 @@ class User(object):
             return
         self.neighbors_name_map[user.name] = user
         self.neighbors_pub_map[user.public_key] = user
-        logging.info('add user %s %s', user.addr, user.name)
+        self.neighbors.append(user)
+        logger.info('add_peer.%s.%s', user.name, str(user.addr).replace('.', '-').replace('\'', ''))
+        logger.info('log.+++ add user %s %s', str(user.addr).replace('.', '-'), user.name)
 
     def remove_neighbor(self, user):
         if user.name not in self.neighbors_name_map:
             return
         del(self.neighbors_pub_map[user.public_key])
         del(self.neighbors_name_map[user.name])
-        logging.info('remove user %s %s', user.addr, user.name)
+        idx = self.neighbors.index(user)
+        logger.info('remove_peer.%s', idx)
+        logger.info('log.--- logout user %s %s', str(user.addr).replace('.', '-'), user.name)
 
     def generate_transaction(self, receiver, message):
         transaction = Transaction(

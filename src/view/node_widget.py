@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 class NodeWidget (QWidget):
-    def __init__ (self, parent = None):
+    def __init__ (self, parent=None):
         super(NodeWidget, self).__init__(parent)
 
         self.textQVBoxLayout = QVBoxLayout()
