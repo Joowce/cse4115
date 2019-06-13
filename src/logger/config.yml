@@ -1,0 +1,8 @@
+version: 1
+loggers:
+  monitoring:
+    level: INFO
+    propagate: no
+root:
+  level: DEBUG
+  handlers: [console]

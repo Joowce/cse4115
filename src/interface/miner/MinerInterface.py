@@ -1,7 +1,12 @@
 from interface.UserInterface import start
+import logging
 from User.Miner import Miner
 from connection.Client import Client
 from connection.Message import parse_message, MessageType, wrap_block
+import sys
+from PyQt5 import QtWidgets
+from view.monitoring import Form
+from logger.MonitoringHandler import MonitoringHandler
 
 
 def receive(user, client):
@@ -41,6 +46,13 @@ if __name__ == '__main__':
     miner.register_notice_prompt(get_user_response)
     miner.block_manager.register_after_mine(lambda block: send_block(client, block))
 
+    app = QtWidgets.QApplication(sys.argv)
+
+    main_form = Form()
+    main_form.change_status_text("Miner : %s            " % miner.name)
+
+    logger = logging.getLogger('monitoring')
+    logger.addHandler(MonitoringHandler(main_form))
+
     start(miner, client, receive)
-    # block = miner.block_manager.generate_block('', [], 0)
-    # print(wrap_block(block))
+    sys.exit(app.exec())

@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger('monitoring')
 
 
 class BlockStorage:
@@ -7,7 +8,7 @@ class BlockStorage:
 
     def store_block(self, block):
         self.blocks.append(block)
-        logging.info('+++ block chain [%d]', len(self.blocks))
+        logger.info('block.block[%d] add', len(self.blocks))
 
     def get_last_block_hash(self):
         if len(self.blocks) == 0:
