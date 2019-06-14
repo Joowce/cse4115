@@ -65,7 +65,7 @@ class ReadThread(QThread):
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        self.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "monitoring.ui"))
+        self.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "monitoring2.ui"))
 
         self.ui.setWindowFlags(Qt.SplashScreen)                          # 윈도우 타이틀 없애기
 
@@ -80,6 +80,7 @@ class Form(QtWidgets.QDialog):
         self.queue_thread.rm_peer_sig.connect(self.remove_node)
 
         self.queue_thread.start()
+        self.setFocus()
         self.ui.show()
 
     def add_node(self, title, subtitle, iconfilename):
@@ -95,7 +96,6 @@ class Form(QtWidgets.QDialog):
         # Set size hint
         myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
 
-        print('-------')
 
         # Add QListWidgetItem into QListWidget
         self.ui.listWidget_4.addItem(myQListWidgetItem)
@@ -108,6 +108,7 @@ class Form(QtWidgets.QDialog):
         self.ui.label_7.setText(""+message)
 
     def handle_log(self, log):
+        print(log)
         self.add_log_item(log)
         self.change_frame_color(44, 132, 238)
 
@@ -121,7 +122,7 @@ class Form(QtWidgets.QDialog):
 
     def add_log_item(self,log):
         item = QListWidgetItem(log)
-        self.ui.listWidget.addItem(item)
+        self.ui.listWidget_5.addItem(item)
 
     def add_block_item(self,log):
         item = QListWidgetItem(log)

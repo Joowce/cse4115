@@ -9,12 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1920</width>
-    <height>1080</height>
+    <width>1680</width>
+    <height>1005</height>
    </rect>
   </property>
   <property name="mouseTracking">
    <bool>false</bool>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::DefaultContextMenu</enum>
@@ -24,13 +27,13 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../Users/USER/Desktop/monitor.png</normaloff>../../../Users/USER/Desktop/monitor.png</iconset>
+    <normaloff>../../USER/Desktop/monitor.png</normaloff>../../USER/Desktop/monitor.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:rgb(40, 40, 40)</string>
+   <string notr="true">background-color:rgb(60, 60, 60)</string>
   </property>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
@@ -42,56 +45,97 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(44, 132, 238)</string>
+    <string notr="true">background-color:rgb(60, 60, 60)</string>
    </property>
   </widget>
   <widget class="QListWidget" name="listWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>430</y>
-     <width>771</width>
-     <height>631</height>
+     <x>40</x>
+     <y>190</y>
+     <width>761</width>
+     <height>341</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="midLineWidth">
+    <number>0</number>
    </property>
   </widget>
   <widget class="QListWidget" name="listWidget_2">
    <property name="geometry">
     <rect>
-     <x>1540</x>
-     <y>430</y>
-     <width>361</width>
-     <height>591</height>
+     <x>1410</x>
+     <y>190</y>
+     <width>461</width>
+     <height>811</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
    </property>
   </widget>
   <widget class="QListWidget" name="listWidget_3">
    <property name="geometry">
     <rect>
-     <x>1170</x>
-     <y>430</y>
-     <width>361</width>
-     <height>591</height>
+     <x>840</x>
+     <y>620</y>
+     <width>531</width>
+     <height>381</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
   </widget>
   <widget class="QListWidget" name="listWidget_4">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>1881</width>
-     <height>171</height>
+     <x>840</x>
+     <y>190</y>
+     <width>531</width>
+     <height>341</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -109,16 +153,18 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>151</y>
-     <width>211</width>
-     <height>21</height>
+     <x>850</x>
+     <y>150</y>
+     <width>161</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
-     <pointsize>18</pointsize>
+     <family>Helvetica75</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -131,46 +177,52 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>390</y>
-     <width>221</width>
-     <height>31</height>
+     <x>50</x>
+     <y>140</y>
+     <width>91</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
-     <pointsize>18</pointsize>
+     <family>Helvetica75</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
    </property>
    <property name="text">
-    <string>Network Monitoring</string>
+    <string>Input</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>621</width>
-     <height>111</height>
+     <x>170</x>
+     <y>40</y>
+     <width>841</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>함초롬바탕 확장</family>
+     <family>Helvetica75</family>
      <pointsize>36</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="styleSheet">
-    <string notr="true">color:white;
-</string>
+    <string notr="true">color:rgb(255, 176, 60);</string>
    </property>
    <property name="text">
-    <string>Logchain Monitoring Board</string>
+    <string>Face Block</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_2" native="true">
@@ -183,7 +235,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(44, 132, 238)</string>
+    <string notr="true">background-color:rgb(60, 60, 60)</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_3" native="true">
@@ -196,7 +248,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(44, 132, 238)</string>
+    <string notr="true">background-color:rgb(60, 60, 60)</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_4" native="true">
@@ -209,20 +261,20 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(44, 132, 238)</string>
+    <string notr="true">background-color:rgb(60, 60, 60)</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_5" native="true">
    <property name="geometry">
     <rect>
-     <x>800</x>
+     <x>1410</x>
      <y>1040</y>
-     <width>1121</width>
+     <width>511</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(44, 132, 238)</string>
+    <string notr="true">background-color:rgb(60, 60, 60)</string>
    </property>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
@@ -250,16 +302,18 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>1170</x>
-     <y>390</y>
-     <width>121</width>
+     <x>850</x>
+     <y>580</y>
+     <width>111</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
-     <pointsize>18</pointsize>
+     <family>Helvetica75</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -272,16 +326,18 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>1540</x>
-     <y>390</y>
-     <width>161</width>
+     <x>1420</x>
+     <y>150</y>
+     <width>211</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
-     <pointsize>18</pointsize>
+     <family>Helvetica75</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -291,39 +347,149 @@
     <string>Transactions </string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>110</y>
+     <width>101</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Helvetica75</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>send5.png</normaloff>send5.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+   <property name="shortcut">
+    <string/>
+   </property>
+   <property name="autoRepeat">
+    <bool>false</bool>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
   <widget class="QListWidget" name="listWidget_5">
    <property name="geometry">
     <rect>
-     <x>800</x>
-     <y>430</y>
-     <width>361</width>
-     <height>591</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color:white;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>800</x>
-     <y>390</y>
-     <width>121</width>
-     <height>31</height>
+     <x>40</x>
+     <y>620</y>
+     <width>761</width>
+     <height>381</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Arial</family>
-     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>570</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Helvetica75</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
    </property>
    <property name="text">
-    <string>Voting</string>
+    <string>Logs</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>-10</y>
+     <width>181</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icon2.png</normaloff>icon2.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>120</width>
+     <height>120</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>200</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
    </property>
   </widget>
  </widget>

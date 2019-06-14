@@ -32,27 +32,27 @@ def start(user, client, msg_handler):
     t.daemon = True
     t.start()
 
-    time = 1
+    # time = 1
 
-    while True:
-        try:
-            # receiver = input()
-            receiver = time
-            time += 1
-            message = input(">>> Type Message\n")
-            transaction = user.generate_transaction(receiver, message)
-
-            if time % 3 == 0:
-                prev_message = transaction.message
-                transaction.message = input('*** Change Transaction Message ***\n')
-                logging.info('Change transaction[%s]:  %s -> %s', transaction.tx_id, prev_message, transaction.message)
-
-            data = wrap_transaction(transaction)
-            client.send(data)
-            logging.info('Send transaction[%s]', transaction.tx_id)
-        except KeyboardInterrupt:
-            logging.info('finish')
-            break
+    # while True:
+    #     try:
+    #         # receiver = input()
+    #         receiver = time
+    #         time += 1
+    #         message = input(">>> Type Message\n")
+    #         transaction = user.generate_transaction(receiver, message)
+    #
+    #         if time % 3 == 0:
+    #             prev_message = transaction.message
+    #             transaction.message = input('*** Change Transaction Message ***\n')
+    #             logging.info('Change transaction[%s]:  %s -> %s', transaction.tx_id, prev_message, transaction.message)
+    #
+    #         data = wrap_transaction(transaction)
+    #         client.send(data)
+    #         logging.info('Send transaction[%s]', transaction.tx_id)
+    #     except KeyboardInterrupt:
+    #         logging.info('finish')
+    #         break
 
 
 def receive(user, client):
