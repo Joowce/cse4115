@@ -11,8 +11,4 @@ class Miner(User):
         self.notice_prompt = callback
 
     def notice_making_block(self, transaction_list):
-        if not self.notice_prompt:
-            return False, -1
-
-        nonce_start = self.notice_prompt(transaction_list)
-        return nonce_start >= 0, nonce_start
+        self.notice_prompt(transaction_list)

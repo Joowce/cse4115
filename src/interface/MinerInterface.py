@@ -2,7 +2,7 @@ from interface.UserInterface import start
 import logging
 from User.Miner import Miner
 from connection.Client import Client
-from connection.Message import parse_message, MessageType, wrap_block
+from connection.Message import parse_message, MessageType, wrap_block, wrap_transaction
 import sys
 from PyQt5 import QtWidgets
 from view.monitoring import Form
@@ -28,15 +28,16 @@ def receive(user, client):
         msg = client.receive()
 
 
-def get_user_response(transaction_list):
-    print(transaction_list)
-    input_data = input('please type nonce start')
-    return int(input_data) if input_data != '' else 0
-
-
 def send_block(c, block):
     data = wrap_block(block)
     c.send(data)
+
+
+def send_transaction(u, c, txt):
+    transaction = u.generate_transaction('', txt)
+    data = wrap_transaction(transaction)
+    c.send(data)
+    logging.info('Send transaction[%s]', transaction.tx_id)
 
 
 if __name__ == '__main__':
@@ -44,13 +45,16 @@ if __name__ == '__main__':
     client = Client()
 
     miner = Miner()
-    miner.register_notice_prompt(get_user_response)
     miner.block_manager.register_after_mine(lambda block: send_block(client, block))
 
     app = QtWidgets.QApplication(sys.argv)
-    main_form = Form()
+    main_form = Form(miner.name)
 
     main_form.change_status_text("Miner : %s            " % miner.name)
+    main_form.register_send_handler(lambda txt: send_transaction(miner, client, txt))
+    main_form.register_mine_handler(miner.block_manager.start_mining)
+
+    miner.register_notice_prompt(main_form.queue_thread.send_open_dialog)
 
     logger = logging.getLogger('monitoring')
     logger.addHandler(MonitoringHandler(main_form))

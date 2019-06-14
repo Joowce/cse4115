@@ -32,11 +32,7 @@ class BlockManager:
     def notice_making_block(self, transaction_list):
         if (not self.user) or self.status == MiningStatus.MINING:
             return
-
-        is_making, nonce_start = self.user.notice_making_block(transaction_list)
-        if not is_making:
-            return
-        self.start_mining(transaction_list, nonce_start)
+        self.user.notice_making_block(transaction_list)
 
     def start_mining(self, transaction_list, nonce_start):
         prev_hash= self.block_storage.get_last_block_hash()

@@ -35,6 +35,7 @@ class ReadThread(QThread):
     bl_sig = pyqtSignal(str)
     tx_sig = pyqtSignal(str)
     rm_peer_sig = pyqtSignal(str)
+    full_sig = pyqtSignal([object])
 
     def __init__(self):
         QThread.__init__(self)
@@ -61,15 +62,23 @@ class ReadThread(QThread):
                 elif data[0] == 'remove_peer':
                     self.rm_peer_sig.emit(data[1])
 
+    def send_open_dialog(self, transaction_list):
+        self.full_sig.emit(transaction_list)
+
 
 class Form(QtWidgets.QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, name='', parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        self.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "monitoring2.ui"))
+        self.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "monitoring.ui"))
 
-        self.ui.setWindowFlags(Qt.SplashScreen)                          # 윈도우 타이틀 없애기
+        self.mine_dialog = QtWidgets.QDialog(parent)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "dialog.ui"), self.mine_dialog)
+
+        # self.ui.setWindowFlags(Qt.SplashScreen)                          # 윈도우 타이틀 없애기
 
         self.ui.listWidget_4.setSpacing(30)
+        if name != '':
+            self.ui.label.setText(self.ui.label.text() + ': %s' % name)
 
         self.queue_thread = ReadThread()
         self.queue_thread.add_peer_sig.connect(self.add_node)
@@ -78,10 +87,40 @@ class Form(QtWidgets.QDialog):
         self.queue_thread.bl_sig.connect(self.handle_block)
         self.queue_thread.tx_sig.connect(self.handle_tx)
         self.queue_thread.rm_peer_sig.connect(self.remove_node)
+        self.queue_thread.full_sig.connect(self.open_mine_dialog)
+
+        self.ui.pushButton.clicked.connect(self.send_sig_handler)
+
+        self.send_handler = None
+        self.mine_handler = None
 
         self.queue_thread.start()
-        self.setFocus()
         self.ui.show()
+
+    def open_mine_dialog(self, transaction_list):
+        self.mine_dialog.buttonBox.accepted.connect(lambda: self.accept_mine(transaction_list))
+        self.mine_dialog.setWindowModality(Qt.ApplicationModal)
+        self.mine_dialog.exec_()
+
+    def accept_mine(self, transaction_list):
+        nonce_start = self.mine_dialog.plainTextEdit.toPlainText()
+        try:
+            nonce_start = int(nonce_start)
+        except Exception:
+            nonce_start = 0
+        self.mine_handler(transaction_list, nonce_start)
+
+    def register_send_handler(self, callback):
+        self.send_handler = callback
+
+    def register_mine_handler(self, callback):
+        self.mine_handler = callback
+
+    def send_sig_handler(self):
+        text = self.ui.plainTextEdit.toPlainText()
+        if self.send_handler:
+            self.send_handler(text)
+        self.ui.plainTextEdit.setPlainText("")
 
     def add_node(self, title, subtitle, iconfilename):
         # Create QCustomQWidget
@@ -138,26 +177,9 @@ class Form(QtWidgets.QDialog):
         
         for widget in widget_list:
             widget.setStyleSheet(stylesheet)
-            # widget.setAutoFillBackground(True)
-            # pt = widget.palette()
-            # pt.setColor(widget.backgroundRole(),QColor(r,g,b))
-            # widget.setPalette(pt)
-            # print(p.name(), widget.autoFillBackground(), widget.updatesEnabled())
 
-        # stylesheet = "background-color: rgb({0}, {1}, {2})".format(r,g,b)
-        # print(stylesheet)
-        # self.ui.widget.setStyleSheet(stylesheet)
-        # print(stylesheet)
-        # self.ui.widget_2.setStyleSheet(stylesheet)
-        # print(stylesheet)
-        # self.ui.widget_3.setStyleSheet(stylesheet)
-        # print(stylesheet)
-        # self.ui.widget_4.setStyleSheet(stylesheet)
-        # print(stylesheet)
-        # self.ui.widget_5.setStyleSheet(stylesheet)
-        # print(stylesheet)
-
-    def add_queue_data(self,data):
+    @staticmethod
+    def add_queue_data(data):
         monitoring_queue.put(data)
 
 
