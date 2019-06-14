@@ -24,7 +24,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>cse4115-master/USER/Desktop/monitor.png</normaloff>cse4115-master/USER/Desktop/monitor.png</iconset>
+    <normaloff>static/monitor.png</normaloff>static/monitor.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -372,7 +372,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>send5.png</normaloff>send5.png</iconset>
+     <normaloff>static/send.png</normaloff>static/send.png</iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -461,7 +461,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icon2.png</normaloff>icon2.png</iconset>
+     <normaloff>static/logo.png</normaloff>static/logo.png</iconset>
    </property>
    <property name="iconSize">
     <size>

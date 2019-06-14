@@ -35,7 +35,7 @@ class User(object):
         self.neighbors_name_map[user.name] = user
         self.neighbors_pub_map[user.public_key] = user
         self.neighbors.append(user)
-        logger.info('add_peer.%s.%s', user.name, str(user.addr).replace('.', '-').replace('\'', ''))
+        logger.info('add_peer.%s.%s.%s', user.name, str(user.addr).replace('.', '-').replace('\'', ''), user.type.name)
         logger.info('log.+++ add user %s %s', str(user.addr).replace('.', '-'), user.name)
 
     def remove_neighbor(self, user):

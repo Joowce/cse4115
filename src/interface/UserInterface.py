@@ -5,6 +5,10 @@ from User.User import User
 from User.Neighbor import Neighbor
 from connection.Message import MessageType, parse_message, \
     wrap_neighbor, wrap_transaction
+import sys
+from PyQt5 import QtWidgets
+from view.monitoring import Form
+from logger.MonitoringHandler import MonitoringHandler
 
 
 def register_user(user, client):
@@ -32,27 +36,13 @@ def start(user, client, msg_handler):
     t.daemon = True
     t.start()
 
-    # time = 1
 
-    # while True:
-    #     try:
-    #         # receiver = input()
-    #         receiver = time
-    #         time += 1
-    #         message = input(">>> Type Message\n")
-    #         transaction = user.generate_transaction(receiver, message)
-    #
-    #         if time % 3 == 0:
-    #             prev_message = transaction.message
-    #             transaction.message = input('*** Change Transaction Message ***\n')
-    #             logging.info('Change transaction[%s]:  %s -> %s', transaction.tx_id, prev_message, transaction.message)
-    #
-    #         data = wrap_transaction(transaction)
-    #         client.send(data)
-    #         logging.info('Send transaction[%s]', transaction.tx_id)
-    #     except KeyboardInterrupt:
-    #         logging.info('finish')
-    #         break
+def send_transaction(u, c, txt):
+    transaction = u.generate_transaction('', txt)
+    data = wrap_transaction(transaction)
+    c.send(data)
+    logging.info('Send transaction[%s]', transaction.tx_id)
+
 
 
 def receive(user, client):
@@ -75,4 +65,20 @@ def receive(user, client):
 
 
 if __name__ == '__main__':
-    start(User(), Client(), receive)
+
+    client = Client()
+
+    user = User()
+
+    app = QtWidgets.QApplication(sys.argv)
+    main_form = Form(user.name)
+
+    main_form.change_status_text("User : %s            " % user.name)
+    main_form.register_send_handler(lambda txt: send_transaction(user, client, txt))
+
+    logger = logging.getLogger('monitoring')
+    logger.addHandler(MonitoringHandler(main_form))
+
+    start(user, client, receive)
+    sys.exit(app.exec())
+

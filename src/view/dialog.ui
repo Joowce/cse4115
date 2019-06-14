@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>415</width>
-    <height>209</height>
+    <width>412</width>
+    <height>212</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -121,8 +121,7 @@ border-color:white;</string>
    <property name="styleSheet">
     <string notr="true">background-color:rgb(70, 70, 70);
 border-color:white;
-border: 3px solid rgb(255, 176, 60);
-border-radius: 40px;</string>
+border: 3px solid rgb(255, 176, 60);</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>

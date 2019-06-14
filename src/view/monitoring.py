@@ -58,7 +58,9 @@ class ReadThread(QThread):
                 elif data[0] == 'transaction':
                     self.tx_sig.emit(data[1])
                 elif data[0] == 'add_peer':
-                    self.add_peer_sig.emit(data[1], data[2], os.path.join(os.path.dirname(__file__), "producer.png"))
+                    print(data)
+                    self.add_peer_sig.emit(data[1], data[2],
+                                           os.path.join(os.path.dirname(__file__), 'static', data[3].lower() + ".png"))
                 elif data[0] == 'remove_peer':
                     self.rm_peer_sig.emit(data[1])
 

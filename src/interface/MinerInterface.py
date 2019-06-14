@@ -1,4 +1,4 @@
-from interface.UserInterface import start
+from interface.UserInterface import start, send_transaction
 import logging
 from User.Miner import Miner
 from connection.Client import Client
@@ -31,13 +31,6 @@ def receive(user, client):
 def send_block(c, block):
     data = wrap_block(block)
     c.send(data)
-
-
-def send_transaction(u, c, txt):
-    transaction = u.generate_transaction('', txt)
-    data = wrap_transaction(transaction)
-    c.send(data)
-    logging.info('Send transaction[%s]', transaction.tx_id)
 
 
 if __name__ == '__main__':
