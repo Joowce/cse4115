@@ -6,7 +6,7 @@ import logging
 from PyQt5 import QtWidgets
 from PyQt5 import uic
 from PyQt5.QtCore import Qt, pyqtSignal, QThread
-from PyQt5.QtWidgets import QListWidgetItem
+from PyQt5.QtWidgets import QListWidgetItem, QGraphicsOpacityEffect
 
 from view.node_widget import NodeWidget
 
@@ -75,6 +75,9 @@ class Form(QtWidgets.QDialog):
 
         self.mine_dialog = QtWidgets.QDialog(parent)
         uic.loadUi(os.path.join(os.path.dirname(__file__), "dialog.ui"), self.mine_dialog)
+
+        opacity_effect = QGraphicsOpacityEffect(self.mine_dialog)
+        opacity_effect.setOpacity(0)
 
         # self.ui.setWindowFlags(Qt.SplashScreen)                          # 윈도우 타이틀 없애기
 

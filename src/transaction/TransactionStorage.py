@@ -1,7 +1,7 @@
 import logging
 
 logger = logging.getLogger('monitoring')
-BLOCK_LEN = 2
+BLOCK_LEN = 3
 
 
 class TransactionStorage:

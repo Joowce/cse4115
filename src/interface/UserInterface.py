@@ -39,6 +39,10 @@ def start(user, client, msg_handler):
 
 def send_transaction(u, c, txt):
     transaction = u.generate_transaction('', txt)
+    prev_message = transaction.message
+    # transaction.message = 'BAD BAD BAD transaction'
+    # logger.info('log.*****Change transaction*******')
+    # logger.info('log.[%s] -> [%s]', prev_message, transaction.message)
     data = wrap_transaction(transaction)
     c.send(data)
     logging.info('Send transaction[%s]', transaction.tx_id)

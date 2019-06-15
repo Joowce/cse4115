@@ -57,10 +57,10 @@ background-color:rgb(255, 176, 60);</string>
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>18</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -88,10 +88,10 @@ border: 0px solid gray;</string>
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>14</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -140,10 +140,10 @@ border: 3px solid rgb(255, 176, 60);</string>
     </property>
     <property name="font">
      <font>
-      <family>Helvetica75</family>
-      <pointsize>16</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <family>Lucida Grande</family>
+      <pointsize>24</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1920</width>
-    <height>1080</height>
+    <width>1680</width>
+    <height>1005</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -56,10 +56,10 @@
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -83,10 +83,10 @@
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -102,18 +102,18 @@
   <widget class="QListWidget" name="listWidget_4">
    <property name="geometry">
     <rect>
-     <x>840</x>
+     <x>410</x>
      <y>190</y>
-     <width>531</width>
+     <width>961</width>
      <height>351</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="focusPolicy">
@@ -144,7 +144,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>420</x>
      <y>150</y>
      <width>161</width>
      <height>31</height>
@@ -344,7 +344,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>710</x>
+     <x>280</x>
      <y>110</y>
      <width>101</width>
      <height>91</height>
@@ -407,10 +407,10 @@
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -478,16 +478,16 @@
     <rect>
      <x>40</x>
      <y>190</y>
-     <width>761</width>
+     <width>331</width>
      <height>351</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Helvetica75</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Lucida Grande</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">

@@ -13,7 +13,7 @@ class NodeWidget (QWidget):
         self.textDownQLabel  = QLabel()
 
         font = self.textUpQLabel.font()
-        font.setPointSize(12)
+        font.setPointSize(24)
         self.textUpQLabel.setFont(font)
 
         self.textUpQLabel.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -43,7 +43,7 @@ class NodeWidget (QWidget):
             color: rgb(255, 255, 255);
         ''')
         self.textDownQLabel.setStyleSheet('''
-            color: rgb(90, 90, 90);
+            color: rgb(255, 255, 255);
         ''')
 
     def setTextUp (self, text):
