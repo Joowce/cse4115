@@ -11,7 +11,6 @@
 
 ### Prerequisties
 ```
-virtualenv $(venv name)
 export PYTHONPATH=./src
 ```
 
